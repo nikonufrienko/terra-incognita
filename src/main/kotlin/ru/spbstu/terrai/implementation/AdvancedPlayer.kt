@@ -47,9 +47,6 @@ class AdvancedPlayer : AbstractPlayer() {
 
     private var lastMove: Move = WaitMove
 
-
-
-
     private var treasureFound = false
 
 
@@ -120,7 +117,7 @@ class AdvancedPlayer : AbstractPlayer() {
             when (room) {
                 is Wormhole -> {
                     if (outputWormholeToOutputLocation.containsKey(room)) {
-                        updateMapByWormHole(newLocation, room)
+                        updateMapByWormhole(newLocation, room)
                         currLocation = outputWormholeToOutputLocation[room]!!
                     } else {
                         numberOfWormholes++
@@ -169,7 +166,7 @@ class AdvancedPlayer : AbstractPlayer() {
     }
 
     //если был найден wormHole, который ранее уже встречался, то стоит объединить исследованную область
-    private fun updateMapByWormHole(inputLocation: Location, wormhole: Wormhole) {
+    private fun updateMapByWormhole(inputLocation: Location, wormhole: Wormhole) {
         val oldLocation = outputWormholeToInputLocation[wormhole]!!
 
         if (oldLocation != inputLocation) {

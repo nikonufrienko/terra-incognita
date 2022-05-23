@@ -8,11 +8,12 @@ class AdvancedPlayerTest : AbstractImplementationTest() {
     override fun createPlayer() = AdvancedPlayer()
     @Test
     fun testCave() {
-        doTestLab("labyrinths/cave.txt", Controller.GameResult(4, exitReached = true))
+        doTestLab("labyrinths/cave.txt", Controller.GameResult(1000, exitReached = false))
     }
+
     @Test
     fun testLab1() {
-        doTestLab("labyrinths/lab1.txt", Controller.GameResult(4, exitReached = true))
+        doTestLab("labyrinths/lab1.txt", Controller.GameResult(100, exitReached = true))
     }
 
     @Test
@@ -22,7 +23,7 @@ class AdvancedPlayerTest : AbstractImplementationTest() {
 
     @Test
     fun testLab3() {
-        doTestLab("labyrinths/lab3.txt", Controller.GameResult(9, exitReached = true))
+        doTestLab("labyrinths/lab3.txt", Controller.GameResult(100, exitReached = true))
     }
 
     @Test
