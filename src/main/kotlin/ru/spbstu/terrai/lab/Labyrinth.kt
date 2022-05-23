@@ -56,7 +56,7 @@ class Labyrinth private constructor(val width: Int, val height: Int, private val
         fun createFromFile(file: File): Labyrinth {
             val lines = file.readLines()
             val height = lines.size - 2
-            val width = (lines.maxBy { it.length } ?: return Labyrinth(0, 0, emptyMap())).length - 2
+            val width = (lines.maxByOrNull  { it.length } ?: return Labyrinth(0, 0, emptyMap())).length - 2
             val map = hashMapOf<Location, Room>()
             val wormholes = mutableMapOf<Int, Wormhole>()
             for ((y, line) in lines.drop(1).dropLast(1).withIndex()) {
