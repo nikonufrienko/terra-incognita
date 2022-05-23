@@ -3,9 +3,9 @@ package ru.spbstu.terrai.implementation
 import org.junit.Test
 import ru.spbstu.terrai.lab.Controller
 
-class FirstPlayerTest : AbstractImplementationTest() {
+class AdvancedPlayerTest : AbstractImplementationTest() {
 
-    override fun createPlayer() = FirstPlayer()
+    override fun createPlayer() = AdvancedPlayer()
     @Test
     fun testCave() {
         doTestLab("labyrinths/cave.txt", Controller.GameResult(4, exitReached = true))
