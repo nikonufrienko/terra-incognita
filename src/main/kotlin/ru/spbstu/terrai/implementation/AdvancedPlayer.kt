@@ -24,16 +24,19 @@ class AdvancedPlayer : AbstractPlayer() {
     private val traceQueue = mutableListOf<Move>()
     private var currentState = State.JUST_EXPLORATION
     private val roomMap = mutableMapOf<Location, Room>()
-
-
+    private var lastMove: Move = WaitMove
+    private var treasureFound = false
+    private lateinit var traceToFinish: List<Move>;
     private lateinit var currLocation: Location
+    private val unknownAvailableSet = mutableSetOf<Location>()
 
     private fun getFinishLocation(): Location {
         assert(finishFound)
-        return roomMap.filter { it.value is Exit }.keys.random()
+        for ((location, room) in roomMap) {
+            if(room is Exit) return location
+        }
+        error("finish wasn't found")
     }
-
-    private val unknownAvailableSet = mutableSetOf<Location>()
 
 
     override fun setStartLocationAndSize(location: Location, width: Int, height: Int) {
@@ -45,16 +48,11 @@ class AdvancedPlayer : AbstractPlayer() {
         updateUnknownAvailableRooms(currLocation)
     }
 
-    private var lastMove: Move = WaitMove
-
-    private var treasureFound = false
-
-    private lateinit var traceToFinish:List<Move>;
 
     /*Это новый метод, поэтому его нет в отчёте.*/
-    private fun checkTraceToFinish():Boolean{
+    private fun checkTraceToFinish(): Boolean {
         val trace = findTraces(currLocation)[getFinishLocation()];
-        return if(trace != null) {
+        return if (trace != null) {
             traceToFinish = trace;
             true;
         } else {
