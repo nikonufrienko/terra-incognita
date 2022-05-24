@@ -26,7 +26,7 @@ class AdvancedPlayer : AbstractPlayer() {
     private val roomMap = mutableMapOf<Location, Room>()
     private var lastMove: Move = WaitMove
     private var treasureFound = false
-    private lateinit var traceToFinish: List<Move>;
+    private lateinit var traceToFinish: List<Move>
     private lateinit var currLocation: Location
     private val unknownAvailableSet = mutableSetOf<Location>()
 
@@ -51,12 +51,12 @@ class AdvancedPlayer : AbstractPlayer() {
 
     /*Это новый метод, поэтому его нет в отчёте.*/
     private fun checkTraceToFinish(): Boolean {
-        val trace = findTraces(currLocation)[getFinishLocation()];
+        val trace = findTraces(currLocation)[getFinishLocation()]
         return if (trace != null) {
-            traceToFinish = trace;
-            true;
+            traceToFinish = trace
+            true
         } else {
-            false;
+            false
         }
     }
 
