@@ -49,6 +49,18 @@ class AdvancedPlayer : AbstractPlayer() {
 
     private var treasureFound = false
 
+    private lateinit var traceToFinish:List<Move>;
+
+    /*Это новый метод, поэтому его нет в отчёте.*/
+    private fun checkTraceToFinish():Boolean{
+        val trace = findTraces(currLocation)[getFinishLocation()];
+        return if(trace != null) {
+            traceToFinish = trace;
+            true;
+        } else {
+            false;
+        }
+    }
 
     override fun getNextMove(): Move {
         when (currentState) {
@@ -56,9 +68,9 @@ class AdvancedPlayer : AbstractPlayer() {
                 //определяем направление к неизвестной ячейке
                 val nextUnknown =
                     Direction.values().filter { it + currLocation !in roomMap }
-                if (treasureFound && finishFound && findTraces(currLocation)[getFinishLocation()] != null) {//костыль
+                if (treasureFound && finishFound && checkTraceToFinish()) {
                     currentState = State.ON_TRACE_TO_FINISH
-                    traceQueue.addAll(findTraces(currLocation)[getFinishLocation()]!!)
+                    traceQueue.addAll(traceToFinish)
                     return getNextMove()
                 } else if (nextUnknown.isNotEmpty()) {
                     val direction =
@@ -223,10 +235,8 @@ class AdvancedPlayer : AbstractPlayer() {
                         Direction.values().map { it + currentLocation to it.turnBack() }
                     }
 
-                //возможным источником может быть любой сосед>
                 //следующей ячейкой может быть любая,
                 //если это вход в кротовую нору то мы рассматриваем в качестве следующей точку выхода
-                //при этом делаем
                 newSetOfLocation.addAll(neighbours.filter {
                     roomMap[it] is Empty || roomMap[it] is WithContent || roomMap[it] is Entrance
                             || roomMap[it] is Exit || roomMap[it] is Wormhole
